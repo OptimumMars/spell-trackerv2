@@ -6,6 +6,12 @@ const router = express.Router();
 //     res.send('Hello World!');
 // });
 
+//brings in routes from api directory
+const apiRouter = require('./api');
+
+//api routes usable with "/api" prefix
+router.use('/api', apiRouter);
+
 //adds a XSRF-TOKEN cookie
 router.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
