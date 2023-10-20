@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       Character.belongsTo(models.User, {
         foreignKey: 'userId'
       });
+
+      Character.hasOne(models.SpellSlot, {
+        onDelete: 'cascade',
+        hooks: true,
+        foreignKey: 'characterId'
+      })
     }
   }
   Character.init({

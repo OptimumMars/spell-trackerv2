@@ -399,7 +399,7 @@
       "slot8Exhaust": 0,
       "slot9": 0,
       "slot9Exhaust": 0,
-      "userId": 1
+      "characterId": 1
     }
     ```
 
@@ -440,7 +440,7 @@
       "slot8Exhaust": 0,
       "slot9": 0,
       "slot9Exhaust": 0,
-      "userId": 1
+      "characterId": 1
     }
     ```
 
@@ -495,7 +495,7 @@
       "slot8Exhaust": 0,
       "slot9": 0,
       "slot9Exhaust": 0,
-      "userId": 1
+      "characterId": 1
     }
     ```
 
@@ -550,7 +550,7 @@
       "slot8Exhaust": 0,
       "slot9": 0,
       "slot9Exhaust": 0,
-      "userId": 1
+      "characterId": 1
     }
     ```
 
