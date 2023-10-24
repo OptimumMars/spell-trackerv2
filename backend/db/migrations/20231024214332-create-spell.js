@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING(400),
+        type: Sequelize.STRING(800),
         allowNull: false
       },
       range: {
