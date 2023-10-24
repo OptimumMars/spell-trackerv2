@@ -19,7 +19,13 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'cascade',
         hooks: true,
         foreignKey: 'characterId'
-      })
+      });
+
+      Character.hasMany(models.Spell, {
+        onDelete: 'cascade',
+        hooks: true,
+        foreignKey: 'characterId'
+      });
     }
   }
   Character.init({
