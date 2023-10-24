@@ -24,11 +24,11 @@ module.exports = {
         allowNull: false
       },
       description: {
-        type: Sequelize.STRING(256),
+        type: Sequelize.STRING(400),
         allowNull: false
       },
       range: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(50)
       },
       attackType: {
         type: Sequelize.STRING(30)
@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING(30)
       },
       duration: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(50)
       },
       components: {
         type: Sequelize.STRING(10)
@@ -48,10 +48,10 @@ module.exports = {
         defaultValue: false
       },
       material: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(50)
       },
       castTime: {
-        type: Sequelize.STRING(30)
+        type: Sequelize.STRING(50)
       },
       ritual: {
         type: Sequelize.BOOLEAN,
