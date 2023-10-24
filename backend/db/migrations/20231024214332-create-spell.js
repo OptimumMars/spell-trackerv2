@@ -28,7 +28,7 @@ module.exports = {
         allowNull: false
       },
       range: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(80)
       },
       attackType: {
         type: Sequelize.STRING(30)
@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING(30)
       },
       duration: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(80)
       },
       components: {
         type: Sequelize.STRING(10)
@@ -48,10 +48,10 @@ module.exports = {
         defaultValue: false
       },
       material: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(80)
       },
       castTime: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(80)
       },
       ritual: {
         type: Sequelize.BOOLEAN,
