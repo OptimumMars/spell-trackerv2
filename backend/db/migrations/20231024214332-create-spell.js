@@ -48,7 +48,7 @@ module.exports = {
         defaultValue: false
       },
       material: {
-        type: Sequelize.STRING(80)
+        type: Sequelize.STRING(100)
       },
       castTime: {
         type: Sequelize.STRING(80)
