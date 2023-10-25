@@ -1,6 +1,5 @@
 const express = require('express');
 const { SpellSlot } = require('../../db/models');
-const spell = require('../../db/models/spell');
 
 const router = express.Router({ mergeParams: true });
 
@@ -36,6 +35,37 @@ router.get('/', async (req, res) => {
 
     res.status(200);
     res.json(spellSlot);
+});
+
+// Update the amount of spell slots for a character
+router.put('/', async (req, res) => {
+    const characterId = req.params.characterId;
+
+    let { slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9 } = req.body;
+
+    let spellSlot = await SpellSlot.findOne({ where: { characterId } });
+
+    if (spellSlot) {
+        const update = await spellSlot.update({
+            slot1,
+            slot2,
+            slot3,
+            slot4,
+            slot5,
+            slot6,
+            slot7,
+            slot8,
+            slot9
+        });
+
+        res.status(200);
+        res.json(spellSlot);
+    } else {
+        const e = new Error("no spell Slots found, no changes made");
+        e.status = 404;
+        return next(e);
+    };
+
 });
 
 module.exports = router;
