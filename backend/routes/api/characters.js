@@ -1,5 +1,6 @@
 const express = require('express');
 const { Character } = require('../../db/models');
+const spellSlotsRouter = require('./spellSlots.js')
 
 const router = express.Router();
 
@@ -71,5 +72,7 @@ router.delete("/:characterId", async (req, res) => {
         return next(e);
     }
 });
+
+router.use('/:characterId/spell-slots', spellSlotsRouter);
 
 module.exports = router;
