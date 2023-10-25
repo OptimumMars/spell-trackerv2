@@ -1,5 +1,6 @@
 const express = require('express');
 const { SpellSlot } = require('../../db/models');
+const spell = require('../../db/models/spell');
 
 const router = express.Router({ mergeParams: true });
 
@@ -27,6 +28,14 @@ router.post('/', async (req, res) => {
     res.json(newSpellSlot);
 });
 
+// Get spell slots for a character
+router.get('/', async (req, res) => {
+    const characterId = req.params.characterId;
 
+    const spellSlot = await SpellSlot.findOne({ where: { characterId } })
+
+    res.status(200);
+    res.json(spellSlot);
+});
 
 module.exports = router;
