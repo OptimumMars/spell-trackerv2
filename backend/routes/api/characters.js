@@ -26,4 +26,11 @@ router.get("/", async (req, res) => {
     res.json(allCharacters);
 })
 
+router.get("/:characterId", async (req, res) => {
+    const character = await Character.findByPk(req.params.characterId);
+
+    res.status(200);
+    res.json(character);
+})
+
 module.exports = router;
