@@ -59,7 +59,38 @@ router.put('/', async (req, res) => {
         });
 
         res.status(200);
-        res.json(spellSlot);
+        res.json(update);
+    } else {
+        const e = new Error("no spell Slots found, no changes made");
+        e.status = 404;
+        return next(e);
+    };
+
+});
+
+// Exhaust Spell Slots for a character
+router.put('/exhaust', async (req, res) => {
+    const characterId = req.params.characterId;
+
+    let { slot1Exhaust, slot2Exhaust, slot3Exhaust, slot4Exhaust, slot5Exhaust, slot6Exhaust, slot7Exhaust, slot8Exhaust, slot9Exhaust } = req.body;
+
+    let spellSlot = await SpellSlot.findOne({ where: { characterId } });
+
+    if (spellSlot) {
+        const update = await spellSlot.update({
+            slot1Exhaust,
+            slot2Exhaust,
+            slot3Exhaust,
+            slot4Exhaust,
+            slot5Exhaust,
+            slot6Exhaust,
+            slot7Exhaust,
+            slot8Exhaust,
+            slot9Exhaust
+        });
+
+        res.status(200);
+        res.json(update);
     } else {
         const e = new Error("no spell Slots found, no changes made");
         e.status = 404;
