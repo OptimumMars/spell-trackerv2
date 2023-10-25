@@ -57,4 +57,19 @@ router.put("/:characterId", async (req, res) => {
 
 });
 
+router.delete("/:characterId", async (req, res) => {
+    let character = await Character.findByPk(req.params.characterId);
+
+    if (character) {
+        await character.destroy();
+
+        res.status(200);
+        res.json('Character deleted')
+    } else {
+        const e = new Error('No character with specified ID found');
+        e.status = 404;
+        return next(e);
+    }
+});
+
 module.exports = router;
