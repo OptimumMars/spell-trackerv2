@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update the amount of spell slots for a character
-router.put('/', async (req, res) => {
+router.put('/', async (req, res, next) => {
     const characterId = req.params.characterId;
 
     let { slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9 } = req.body;

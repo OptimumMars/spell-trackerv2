@@ -71,4 +71,50 @@ router.get('/:spellId', async (req, res, next) => {
     res.json(spell);
 })
 
+//Update a specific spell on a character
+router.put('/:spellId', async (req, res, next) => {
+    let { characterId, spellId } = req.params;
+
+    let {
+        name,
+        level,
+        description,
+        range,
+        attackType,
+        damage,
+        duration,
+        components,
+        material,
+        concentration,
+        castTime,
+        ritual
+    } = req.body
+
+    let spell = await Spell.findByPk(spellId);
+
+    if (spell && spell.characterId == characterId) {
+        const update = await spell.update({
+            name,
+            level,
+            description,
+            range,
+            attackType,
+            damage,
+            duration,
+            components,
+            material,
+            concentration,
+            castTime,
+            ritual
+        });
+
+        res.status(200);
+        res.json(update);
+    } else {
+        const e = new Error("No spell found, no changes made");
+        e.status = 404;
+        return next(e)
+    }
+})
+
 module.exports = router;
