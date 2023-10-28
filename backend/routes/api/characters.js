@@ -1,6 +1,7 @@
 const express = require('express');
 const { Character } = require('../../db/models');
-const spellSlotsRouter = require('./spellSlots.js')
+const spellSlotsRouter = require('./spellSlots.js');
+const spellsRouter = require('./spells.js');
 
 const router = express.Router();
 
@@ -73,6 +74,8 @@ router.delete("/:characterId", async (req, res) => {
     }
 });
 
+//Connects spell slot and spell routers to have the character prefix
 router.use('/:characterId/spell-slots', spellSlotsRouter);
+router.use('/:characterId/spells', spellsRouter);
 
 module.exports = router;
