@@ -40,6 +40,35 @@ router.post('/', async (req, res) => {
 
     res.status(201);
     res.json(newSpell);
+});
+
+//Get all spells on a character
+router.get('/', async (req, res) => {
+    let characterId = req.params.characterId;
+
+    let spells = await Spell.findAll({ where: { characterId } })
+
+    res.status(200);
+    res.json(spells);
+})
+
+//Get one specific spell on a character
+router.get('/:spellId', async (req, res, next) => {
+    let spellId = req.params.spellId;
+    let characterId = req.params.characterId;
+
+    let spell = await Spell.findByPk(spellId);
+    // console.log(typeof spell.characterId, "<---- characterId on spell")
+    // console.log(typeof characterId, "<---- characterId on reqparams")
+
+    if (spell.characterId !== Number(characterId)) {
+        const e = new Error("you don't have access to this spell")
+        e.status = 404;
+        return next(e);
+    }
+
+    res.status(200);
+    res.json(spell);
 })
 
 module.exports = router;
