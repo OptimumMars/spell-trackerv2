@@ -117,4 +117,22 @@ router.put('/:spellId', async (req, res, next) => {
     }
 })
 
+// Delete a specific spell
+router.delete('/:spellId', async (req, res, next) => {
+    let { characterId, spellId } = req.params;
+
+    let spell = await Spell.findByPk(spellId);
+
+    if (spell && spell.characterId == characterId) {
+        await spell.destroy();
+
+        res.status(200);
+        res.json('Spell Deleted');
+    } else {
+        const e = new Error("No Spell found with specified ID");
+        e.status = 404;
+        return next(e)
+    }
+});
+
 module.exports = router;
