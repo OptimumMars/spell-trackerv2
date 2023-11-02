@@ -22,7 +22,11 @@ router.post("/", async (req, res) => {
 
 //Get all characters
 router.get("/", async (req, res) => {
-    const allCharacters = await Character.findAll();
+    let userId = req.user.id;
+
+    const allCharacters = await Character.findAll({
+        where: { userId }
+    });
 
     res.status(200);
     res.json(allCharacters);
