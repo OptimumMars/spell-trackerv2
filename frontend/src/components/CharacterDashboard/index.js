@@ -9,14 +9,23 @@ function CharacterDashboard() {
     let characters = useSelector((state) => state.character.characters);
 
     useEffect(() => {
-        dispatch(getCharacters())
-    }, [dispatch]);
+        async function fetchCharacters() {
+            if (currentUser === null) {
+                return null;
+            }
+            await dispatch(getCharacters())
+        };
+        fetchCharacters();
+    }, [currentUser]);
 
     return (
         <>
-            <div>
-                character page i guess
-            </div>
+            <h1>Character Dashboard</h1>
+            {characters && characters.map(character => (
+                <div key={character.id}>
+                    <h3>{character.name}</h3>
+                </div>
+            ))}
         </>
     )
 }
