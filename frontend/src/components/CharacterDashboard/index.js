@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+// import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters } from "../../store/character";
+import "./CharacterDashboard.css"
 
 function CharacterDashboard() {
     const dispatch = useDispatch();
@@ -16,16 +17,20 @@ function CharacterDashboard() {
             await dispatch(getCharacters())
         };
         fetchCharacters();
-    }, [currentUser]);
+    }, [dispatch, currentUser]);
 
     return (
         <>
             <h1>Character Dashboard</h1>
+            <div className="card_container">
             {characters && characters.map(character => (
-                <div key={character.id}>
+                <div key={character.id} className="character_card">
                     <h3>{character.name}</h3>
+                    <p>{character.class}</p>
+                    <p>{character.race}</p>
                 </div>
             ))}
+            </div>
         </>
     )
 }
