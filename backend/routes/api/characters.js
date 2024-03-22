@@ -1,5 +1,5 @@
 const express = require("express");
-const { Character } = require("../../db/models");
+const { Character, Spell, SpellSlot } = require("../../db/models");
 const spellSlotsRouter = require("./spellSlots.js");
 const spellsRouter = require("./spells.js");
 
@@ -36,7 +36,19 @@ router.get("/", async (req, res) => {
 
 //Get one character
 router.get("/:characterId", async (req, res) => {
-  const character = await Character.findByPk(req.params.characterId);
+  const character = await Character.findOne({
+    where: {
+      id: req.params.characterId,
+    },
+    include: [
+      {
+        model: Spell,
+      },
+      {
+        model: SpellSlot,
+      },
+    ],
+  });
 
   res.status(200);
   res.json(character);

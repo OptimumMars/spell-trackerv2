@@ -18,8 +18,6 @@ function CharacterDetails() {
         fetchCharacter();
     }, [dispatch, characterId])
 
-    console.log(character);
-
     return (
         <div>
             <h3>{character.name}</h3>
