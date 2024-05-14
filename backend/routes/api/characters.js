@@ -28,8 +28,6 @@ router.get("/", async (req, res) => {
     where: { userId },
   });
 
-  console.log("this is the cahracters ", allCharacters);
-
   res.status(200);
   res.json(allCharacters);
 });

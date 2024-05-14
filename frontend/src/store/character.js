@@ -33,8 +33,6 @@ export const getSingleCharacter = (characterId) => async (dispatch) => {
   if (response.ok) {
     const character = await response.json();
 
-    console.log(character);
-
     dispatch(setCharacter(character));
   }
 };
