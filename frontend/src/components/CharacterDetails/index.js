@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import SpellFormModal from "../SpellFormModal";
 import "./CharacterDetails.css"
 
 import { getSingleCharacter } from "../../store/character";
@@ -30,7 +32,10 @@ function CharacterDetails() {
             <h2>{character.class}</h2>
             <div className="spells_container">
                 <h3>{character.name}'s Spells:</h3>
-                <button>Add a Spell!</button>
+                <OpenModalButton
+                    buttonText="Add a Spell!"
+                    modalComponent={<SpellFormModal />}
+                />
                 {character.Spells && character.Spells.map(spell => (
                     <div key={spell.id} className="spell_card">
                         {/* {console.log(spell)} */}
