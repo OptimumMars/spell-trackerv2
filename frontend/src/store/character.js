@@ -37,6 +37,23 @@ export const getSingleCharacter = (characterId) => async (dispatch) => {
   }
 };
 
+export const createCharacter = (character) => async (dispatch) => {
+  const response = await csrfFetch("/api/characters/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(character),
+  });
+
+  if (response.ok) {
+    const newCharacter = await response.json();
+    dispatch(getCharacters());
+    return newCharacter;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+};
+
 const initialState = {};
 
 const characterReducer = (state = initialState, action) => {

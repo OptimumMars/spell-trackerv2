@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters } from "../../store/character";
+import OpenModalButton from "../OpenModalButton";
+import CharacterFormModal from "../CharacterFormModal";
 import "./CharacterDashboard.css"
 import { NavLink } from "react-router-dom";
 
@@ -9,8 +11,6 @@ function CharacterDashboard() {
     let currentUser = useSelector((state) => state.session.user);
     let characters = useSelector((state) => state.character);
     let characterArr = Object.values(characters)
-    // console.log(characters)
-    // console.log(characterArr)
 
     useEffect(() => {
         async function fetchCharacters() {
@@ -27,6 +27,10 @@ function CharacterDashboard() {
         <>
             <h1>Character Dashboard</h1>
             <div className="card_container">
+                <OpenModalButton
+                    buttonText="Add a New Character!"
+                    modalComponent={<CharacterFormModal/>}
+                />
             {characterArr && characterArr.map(character => (
                 <NavLink exact to={`/characters/${character.id}`} key={character.id} className="character_card">
                     <h3>{character.name}</h3>

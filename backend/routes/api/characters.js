@@ -7,10 +7,10 @@ const router = express.Router();
 
 //Create a new character
 router.post("/", async (req, res) => {
-  let { name, race, userId } = req.body;
+  let { name, race } = req.body;
 
   const newCharacter = await Character.create({
-    userId,
+    userId: req.user.id,
     name,
     race,
     class: req.body.class,
