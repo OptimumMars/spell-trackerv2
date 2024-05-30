@@ -54,6 +54,25 @@ export const createCharacter = (character) => async (dispatch) => {
   }
 };
 
+export const createSpell = (spell, characterId) => async (dispatch) =>{
+  console.log("hit the create spell thunk")
+  console.log(spell, characterId)
+  const response = await csrfFetch(`/api/characters/${characterId}/spells/`,{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(spell),
+  });
+  console.log(spell, characterId)
+  if (response.ok) {
+    const newSpell = await response.json();
+    dispatch(getSingleCharacter(characterId));
+    return newSpell;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
 const initialState = {};
 
 const characterReducer = (state = initialState, action) => {

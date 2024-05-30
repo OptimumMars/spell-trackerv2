@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import { createSpell } from "../../store/character";
 
 function SpellFormModal() {
     const dispatch = useDispatch();
@@ -22,10 +23,31 @@ function SpellFormModal() {
 
     const { closeModal } = useModal();
 
-    const handleSubmit = (e) => {
+    let { characterId } = useParams();
+    console.log(useParams());
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
 
+        let spell = {
+            name,
+            level,
+            description,
+            range,
+            attackType,
+            damage,
+            duration,
+            components,
+            concentration,
+            material,
+            castTime,
+            ritual
+        }
+        
+        const newSpell = await dispatch(createSpell(spell, characterId));
+
+        closeModal();
     }
 
     return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import CharacterDashboard from "./components/CharacterDashboard";
 import CharacterDetails from "./components/CharacterDetails";
@@ -15,19 +15,18 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route exact path={"/characters/:characterId"} element={<CharacterDetails />} />
+      <Route exact path={"/characters"} element={<CharacterDashboard />} />
+    )
+  );
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route exact path={"/characters/:characterId"}>
-            <CharacterDetails />
-          </Route>
-          <Route exact path={"/characters"}>
-            <CharacterDashboard />
-          </Route>
-        </Switch>
+        {router}
       )}
     </>
   );
