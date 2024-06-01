@@ -5,7 +5,6 @@ import './index.css';
 
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from "./store/session";
 import { ModalProvider, Modal } from './context/Modal';
@@ -27,10 +26,8 @@ function Root() {
   return (
     <ModalProvider>
       <Provider store={store}>
-        <BrowserRouter>
           <App />
           <Modal />
-        </BrowserRouter>
       </Provider>
     </ModalProvider>
   );

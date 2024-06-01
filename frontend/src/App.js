@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Route, BrowserRouter } from "react-router-dom";
+import { Route, createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import CharacterDashboard from "./components/CharacterDashboard";
 import CharacterDetails from "./components/CharacterDetails";
 import * as sessionActions from "./store/session";
 
+const Layout = () => {
+    const dispatch = useDispatch();
+    const [isLoaded, setIsLoaded] = useState(false);
 
-function App() {
-  const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
+    useEffect(() => {
+        dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+    return (
+        <>
+            <Navigation isLoaded={isLoaded} />
+            <Outlet />
+        </>
+    );
+};
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route exact path={"/characters/:characterId"} element={<CharacterDetails />} />
-      <Route exact path={"/characters"} element={<CharacterDashboard />} />
-    )
-  );
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children: [
+        {
+            path: "/characters/:characterId",
+            element: <CharacterDetails />,
+        },
+        {
+            path: "/characters",
+            element: <CharacterDashboard />,
+        },
+    ],
+  }
+]);
 
-  return (
-    <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        {router}
-      )}
-    </>
-  );
-}
+const App = () => {
+    return <RouterProvider router={router} />;
+};
+
 
 export default App;
