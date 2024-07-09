@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { createSpell } from "../../store/character";
 
-function SpellFormModal() {
+function SpellFormModal({characterId}) {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [level, setLevel] = useState(0);
@@ -23,8 +22,6 @@ function SpellFormModal() {
 
     const { closeModal } = useModal();
 
-    let { characterId } = useParams();
-    console.log(useParams());
 
     const handleSubmit = async (e) => {
         e.preventDefault();

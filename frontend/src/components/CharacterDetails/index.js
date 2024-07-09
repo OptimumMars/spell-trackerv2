@@ -34,7 +34,7 @@ function CharacterDetails() {
                 <h3>{character.name}'s Spells:</h3>
                 <OpenModalButton
                     buttonText="Add a Spell!"
-                    modalComponent={<SpellFormModal />}
+                    modalComponent={<SpellFormModal characterId={characterId} />}
                 />
                 {character.Spells && character.Spells.map(spell => (
                     <div key={spell.id} className="spell_card">
