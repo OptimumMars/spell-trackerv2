@@ -12,6 +12,11 @@ import App from './App';
 
 import configureStore from './store';
 
+import { createRoot } from 'react-dom/client';
+
+const domNode = document.getElementById('root');
+const root = createRoot(domNode);
+
 const store = configureStore();
 
 if (process.env.NODE_ENV !== 'production') {
@@ -33,9 +38,11 @@ function Root() {
   );
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+root.render(<Root />)
+
+//ReactDOM.render(
+//  <React.StrictMode>
+//    <Root />
+//  </React.StrictMode>,
+//  document.getElementById('root')
+//);
