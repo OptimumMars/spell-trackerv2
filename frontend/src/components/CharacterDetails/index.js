@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import SpellFormModal from "../SpellFormModal";
 import UpdateSpellSlotsModal from "../UpdateSpellSlotsModal";
+import ExhaustSpellSlotsModal from "../ExhaustSpellSlotsModal";
 import "./CharacterDetails.css"
 
 import { getSingleCharacter } from "../../store/character";
@@ -66,7 +67,10 @@ function CharacterDetails() {
                     buttonText="Update Number of Spell Slots"
                     modalComponent={<UpdateSpellSlotsModal characterId={characterId} spellSlots={character.SpellSlot} />}
                 />
-                <button>Exhaust Spell Slots!</button>
+                <OpenModalButton
+                    buttonText="Exhaust Spell Slots"
+                    modalComponent={<ExhaustSpellSlotsModal characterId={characterId} spellSlots={character.SpellSlot} />}
+                />
                 {character.SpellSlot && (
                     <div className="spellslot_grid">
                     {/* {console.log(character.SpellSlot)} */}

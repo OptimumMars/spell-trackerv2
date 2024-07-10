@@ -109,6 +109,23 @@ export const updateSpellSlotsThunk = (characterId, spellSlots) => async (dispatc
   }
 }
 
+export const exhaustSpellSlotsThunk = (characterId, spellSlots) => async (dispatch) => {
+  const response = await csrfFetch(`/api/characters/${characterId}/spell-slots/exhaust`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(spellSlots),
+  });
+
+  if (response.ok){
+    const updatedSpellSlots = await response.json();
+    dispatch(getSingleCharacter(characterId));
+    return updatedSpellSlots;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
 const initialState = {};
 
 const characterReducer = (state = initialState, action) => {
