@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { createSpell } from "../../store/character";
+import { createSpell, updateSpell } from "../../store/character";
 
-function SpellFormModal({characterId}) {
+function SpellFormModal({characterId, isCreate, spell}) {
     const dispatch = useDispatch();
-    const [name, setName] = useState("");
-    const [level, setLevel] = useState(0);
-    const [description, setDescription] = useState("");
-    const [range, setRange] = useState("");
-    const [attackType, setAttackType] = useState("");
-    const [damage, setDamage] = useState("");
-    const [duration, setDuration] = useState("");
-    const [components, setComponents] = useState("");
-    const [concentration, setConcentration] = useState(false);
-    const [material, setMaterial] = useState("");
-    const [castTime, setCastTime] = useState("");
-    const [ritual, setRitual] = useState(false);
+
+
+
+    const [name, setName] = useState(isCreate ? "" : spell.name);
+    const [level, setLevel] = useState(isCreate ? 0 : spell.level);
+    const [description, setDescription] = useState(isCreate ? "" : spell.description);
+    const [range, setRange] = useState(isCreate ? "" : spell.range);
+    const [attackType, setAttackType] = useState(isCreate ? "" : spell.attackType);
+    const [damage, setDamage] = useState(isCreate ? "" : spell.damage);
+    const [duration, setDuration] = useState(isCreate ? "" : spell.duration);
+    const [components, setComponents] = useState(isCreate ? "" : spell.components);
+    const [concentration, setConcentration] = useState(isCreate ? false : spell.concentration);
+    const [material, setMaterial] = useState(isCreate ? "" : spell.material);
+    const [castTime, setCastTime] = useState(isCreate ? "" : spell.castTime);
+    const [ritual, setRitual] = useState(isCreate ? false : spell.ritual);
 
     const [errors, setErrors] = useState({});
 
@@ -27,7 +30,7 @@ function SpellFormModal({characterId}) {
         e.preventDefault();
         setErrors({});
 
-        let spell = {
+        let currSpell = {
             name,
             level,
             description,
@@ -41,15 +44,19 @@ function SpellFormModal({characterId}) {
             castTime,
             ritual
         }
-        
-        const newSpell = await dispatch(createSpell(spell, characterId));
 
+        if (isCreate){
+            const newSpell = await dispatch(createSpell(currSpell, characterId));
+        }else{
+            const updatedSpell = await dispatch(updateSpell(currSpell, characterId, spell.id));
+        }
         closeModal();
     }
 
     return (
         <>
-        <h1>Add your Spell!</h1>
+        <h1>{isCreate ?
+        "Add your Spell!" : "Update Spell!"}</h1>
         <form onSubmit={handleSubmit}>
             <label>
                 Spell Name:
@@ -150,7 +157,7 @@ function SpellFormModal({characterId}) {
                     onChange={(e) => setRitual(e.target.value)}
                 />
             </label>
-            <button type="submit">Create Spell!</button>
+            <button type="submit">{ isCreate ? "Create Spell!" : "Update Spell!"}</button>
         </form>
         </>
     );

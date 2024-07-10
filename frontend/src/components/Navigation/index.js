@@ -16,7 +16,7 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <>
                 <li>
-                    <NavLink exact to="/characters">
+                    <NavLink exact="true" to="/characters">
                         Your Characters
                     </NavLink>
                 </li>
@@ -43,7 +43,7 @@ function Navigation({ isLoaded }) {
     return (
         <ul>
             <li>
-                <NavLink exact to="/">
+                <NavLink exact="true" to="/">
                     Home
                 </NavLink>
             </li>

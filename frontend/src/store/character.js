@@ -55,8 +55,8 @@ export const createCharacter = (character) => async (dispatch) => {
 };
 
 export const createSpell = (spell, characterId) => async (dispatch) =>{
-  console.log("hit the create spell thunk")
-  console.log(spell, characterId)
+  // console.log("hit the create spell thunk")
+  // console.log(spell, characterId)
   const response = await csrfFetch(`/api/characters/${characterId}/spells/`,{
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -67,6 +67,25 @@ export const createSpell = (spell, characterId) => async (dispatch) =>{
     const newSpell = await response.json();
     dispatch(getSingleCharacter(characterId));
     return newSpell;
+  } else {
+    const errors = await response.json();
+    return errors;
+  }
+}
+
+export const updateSpell = (spell, characterId, spellId) => async (dispatch) =>{
+  // console.log("hit the create spell thunk")
+  // console.log(spell, characterId)
+  const response = await csrfFetch(`/api/characters/${characterId}/spells/${spellId}`,{
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(spell),
+  });
+
+  if (response.ok) {
+    const updatedSpell = await response.json();
+    dispatch(getSingleCharacter(characterId));
+    return updatedSpell;
   } else {
     const errors = await response.json();
     return errors;
