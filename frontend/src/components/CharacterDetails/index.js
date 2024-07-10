@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import SpellFormModal from "../SpellFormModal";
+import UpdateSpellSlotsModal from "../UpdateSpellSlotsModal";
 import "./CharacterDetails.css"
 
 import { getSingleCharacter } from "../../store/character";
@@ -61,7 +62,10 @@ function CharacterDetails() {
             </div>
             <div className="spells_container">
                 <h3>{character.name}'s Spell Slots:</h3>
-                <button>Update Amount of Spell Slots!</button>
+                <OpenModalButton
+                    buttonText="Update Number of Spell Slots"
+                    modalComponent={<UpdateSpellSlotsModal characterId={characterId} spellSlots={character.SpellSlot} />}
+                />
                 <button>Exhaust Spell Slots!</button>
                 {character.SpellSlot && (
                     <div className="spellslot_grid">
